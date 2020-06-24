@@ -62,7 +62,6 @@ public class SysUserTokenServiceImpl extends ServiceImpl<SysUserTokenMapper, Sys
             this.updateById(tokenEntity);
         }
 
-
         //返回token 给前端
         return R.ok().put("token", token).put("expire",EXPIRE_TIME);
     }

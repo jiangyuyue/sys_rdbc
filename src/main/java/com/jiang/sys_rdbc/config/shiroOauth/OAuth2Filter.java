@@ -114,7 +114,7 @@ public class OAuth2Filter extends AuthenticatingFilter {
 
             String json = JSON.toJSONString(r);
             httpResponse.getWriter().print(json);
-            //            Object o = new ThreadLocal<>().get();
+
 
         } catch (IOException e1) {
 

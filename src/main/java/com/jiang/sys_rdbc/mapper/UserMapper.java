@@ -3,6 +3,7 @@ package com.jiang.sys_rdbc.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -20,7 +21,7 @@ public interface UserMapper extends BaseMapper<User> {
             "\t\t\tLEFT JOIN sys_role_menu rm on ur.role_id = rm.role_id \n" +
             "\t\t\tLEFT JOIN sys_menu m on rm.menu_id = m.menu_id \n" +
             "\t\twhere ur.user_id = #{userId}")
-    List<String> queryAllPerms(long userId);
+    List<String> queryAllPerms(@Param("userId") Long userId);
 
    // @ResultMap()
 }

@@ -32,14 +32,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         PageInfo<User> pageInfo = new PageInfo(userList);
 
         //分页组件
-        List<User> infoList = pageInfo.getList(); //当前页结果集
+        //        List<User> infoList = pageInfo.getList(); //当前页结果集
+        //
+        //        int pageNum = pageInfo.getPageNum(); //当前页
+        //
+        //        long total=pageInfo.getTotal();  //总记录数
+        //
+        //        int pageSize = pageInfo.getPageSize();//每页的数量
 
-        int pageNum = pageInfo.getPageNum(); //当前页
-
-        long total=pageInfo.getTotal();  //总记录数
-
-        int pageSize = pageInfo.getPageSize();//每页的数量
-
-        return R.ok().put("page",new PageResult<User>(pageNum,pageSize,total,infoList));
+        return R.ok().put("page", new PageResult<User>(pageInfo));
     }
 }

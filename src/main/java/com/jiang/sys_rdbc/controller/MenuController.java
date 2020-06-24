@@ -2,7 +2,6 @@ package com.jiang.sys_rdbc.controller;
 
 import java.util.List;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -123,8 +122,9 @@ public class MenuController extends AbstractController {
      * 用字段if(parented==true)   请求接口或跳转页面
      * @param parentId  父节点id
      * @return
+     * RequiresPermissions 权限注解
      */
-    @RequiresPermissions("menu:menuList")
+    //@RequiresPermissions("menu:menuList")
     @GetMapping("/menuList")
     public R menuList(Long parentId) {
         List<MenuVoEntity> menuVoEntities = menuService.listByParentId(parentId);

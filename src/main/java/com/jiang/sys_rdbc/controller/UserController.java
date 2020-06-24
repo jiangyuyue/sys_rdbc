@@ -5,12 +5,10 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jiang.sys_rdbc.common.utils.R;
-import com.jiang.sys_rdbc.entity.SysRoleMenuEntity;
 import com.jiang.sys_rdbc.entity.SysUserRoleEntity;
 import com.jiang.sys_rdbc.entity.User;
 import com.jiang.sys_rdbc.entity.vo.MenuVoEntity;
@@ -74,19 +72,16 @@ public class UserController extends AbstractController {
         boolean remove = userService.remove(new QueryWrapper<User>().eq("user_id", userId));
 
         //查询用户-角色列表，删除角色-菜单数据
-        List<SysUserRoleEntity> userRoleEntityList = userRoleService
-                .list(new QueryWrapper<SysUserRoleEntity>().eq("user_id", userId));
-        if (!CollectionUtils.isEmpty(userRoleEntityList)) {
-            userRoleEntityList.forEach(userRole -> roleMenuService
-                    .remove(new QueryWrapper<SysRoleMenuEntity>().eq("role_id", userRole.getUserId())));
-        }
+        //        List<SysUserRoleEntity> userRoleEntityList = userRoleService
+        //                .list(new QueryWrapper<SysUserRoleEntity>().eq("user_id", userId));
+        //        if (!CollectionUtils.isEmpty(userRoleEntityList)) {
+        //            userRoleEntityList.forEach(userRole -> roleMenuService
+        //                    .remove(new QueryWrapper<SysRoleMenuEntity>().eq("role_id", userRole.getRoleId())));
+        //        }
 
         //删除 用户-角色
         userRoleService.remove(new QueryWrapper<SysUserRoleEntity>().eq("user_id", userId));
 
-        if (!remove) {
-            return R.error("删除失败！");
-        }
         return R.ok();
     }
 
@@ -171,7 +166,7 @@ public class UserController extends AbstractController {
 
     /**
      * 按照当前用户遍历树
-     * 首页一加载 前端传入  parentId=0
+     * 首页加载 前端传入  parentId=0
      * 目录显示后 将当前menuId  parentId={menuId}
      * 用字段if(parented==true)   请求接口还是跳转页面
      * @param parentId
