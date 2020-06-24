@@ -23,11 +23,16 @@ import com.jiang.sys_rdbc.config.shiroOauth.OAuth2Realm;
 /**
  * @author 蒋雨岳
  * @Date 2020/6/23 0023
+ * shiro配置
  */
 @Configuration
 public class ShrioConfig {
 
 
+    /**
+     * 这两个必须写到最上面，否则权限注解不生效
+     * @return
+     */
     @Bean("lifecycleBeanPostProcessor")
     public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
         // new DefaultAdvisorAutoProxyCreator().setProxyTargetClass(true);
@@ -35,14 +40,16 @@ public class ShrioConfig {
         return lifecycleBeanPostProcessor;
     }
 
-
+    /**
+     * 这两个必须写到最上面，否则权限注解不生效
+     * @return
+     */
     @Bean("defaultAdvisorAutoProxyCreator")
     public DefaultAdvisorAutoProxyCreator getAdvisorAutoProxyCreator(LifecycleBeanPostProcessor lifecycleBeanPostProcessor) {
         DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
         defaultAdvisorAutoProxyCreator.setProxyTargetClass(true);
         return defaultAdvisorAutoProxyCreator;
     }
-
 
 
 
