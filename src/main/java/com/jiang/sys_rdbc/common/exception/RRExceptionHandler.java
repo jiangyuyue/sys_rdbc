@@ -1,6 +1,7 @@
 
 package com.jiang.sys_rdbc.common.exception;
 
+import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
@@ -40,6 +41,12 @@ public class RRExceptionHandler {
     public R handleDuplicateKeyException(DuplicateKeyException e) {
         logger.error(e.getMessage(), e);
         return R.error("数据库中已存在该记录");
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public R handleUnauthorizedException(UnauthorizedException e) {
+        logger.error(e.getMessage(), e);
+        return R.error("您没有访问的权限！");
     }
 
     @ExceptionHandler(Exception.class)

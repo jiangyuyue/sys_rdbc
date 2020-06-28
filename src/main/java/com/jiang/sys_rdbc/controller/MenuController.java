@@ -2,6 +2,7 @@ package com.jiang.sys_rdbc.controller;
 
 import java.util.List;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -125,7 +126,7 @@ public class MenuController extends AbstractController {
      * @return
      * RequiresPermissions 权限注解
      */
-    //@RequiresPermissions("menu:menuList")
+    @RequiresPermissions("menu:menuList")
     @SysLog("菜单列表")
     @GetMapping("/menuList")
     public R menuList(Long parentId, String logTestParam) {
