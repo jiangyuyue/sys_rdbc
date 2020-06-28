@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.jiang.sys_rdbc.annotion.SysLog;
 import com.jiang.sys_rdbc.common.utils.R;
 import com.jiang.sys_rdbc.entity.SysMenuEntity;
 import com.jiang.sys_rdbc.entity.SysRoleMenuEntity;
@@ -125,8 +126,9 @@ public class MenuController extends AbstractController {
      * RequiresPermissions 权限注解
      */
     //@RequiresPermissions("menu:menuList")
+    @SysLog("菜单列表")
     @GetMapping("/menuList")
-    public R menuList(Long parentId) {
+    public R menuList(Long parentId, String logTestParam) {
         List<MenuVoEntity> menuVoEntities = menuService.listByParentId(parentId);
 
         return R.ok().put("menuList", menuVoEntities);

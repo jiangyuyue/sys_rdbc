@@ -34,7 +34,7 @@ public class SysUserTokenServiceImpl extends ServiceImpl<SysUserTokenMapper, Sys
         String token= UUID.randomUUID().toString().replaceAll("-","");
 
         //当前时间
-         Date now = new Date();;
+        Date now = new Date();
 
         //过期时间(2个小时)
         Date expireTime = new Date(now.getTime()+ EXPIRE_TIME*60*60*1000);
