@@ -64,6 +64,8 @@ public class OAuth2Realm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
+        System.out.println("执行登录逻辑。。。。。。。。。。。。。。。");
+
         String accessToken = (String) token.getPrincipal(); //根据accessToken，查询用户信息
         SysUserTokenEntity tokenEntity = shiroService.queryByToken(accessToken); //token失效
 
@@ -73,7 +75,7 @@ public class OAuth2Realm extends AuthorizingRealm {
         //查询用户信息
         User user = shiroService.queryUser(tokenEntity.getUserId());
 
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, accessToken, getName());
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, accessToken, super.getName());
         return info;
     }
 }

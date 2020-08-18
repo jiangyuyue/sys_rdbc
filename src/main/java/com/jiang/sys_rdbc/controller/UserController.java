@@ -69,7 +69,7 @@ public class UserController extends AbstractController {
     public R removeUser(Long userId) {
 
         //未作标记删除(删除用户)
-        boolean remove = userService.remove(new QueryWrapper<User>().eq("user_id", userId));
+        userService.remove(new QueryWrapper<User>().eq("user_id", userId));
 
         //查询用户-角色列表，删除角色-菜单数据
         //        List<SysUserRoleEntity> userRoleEntityList = userRoleService
@@ -149,7 +149,7 @@ public class UserController extends AbstractController {
         Long currentUserId = getUser().getUserId();
 
         //删除旧数据
-        userRoleService.remove(new QueryWrapper<SysUserRoleEntity>().eq("user_id",userId));
+        userRoleService.remove(new QueryWrapper<SysUserRoleEntity>().eq("user_id", userId));
 
         String[] split = roleIds.split(",");
         //新数据循环插入用户—角色表
