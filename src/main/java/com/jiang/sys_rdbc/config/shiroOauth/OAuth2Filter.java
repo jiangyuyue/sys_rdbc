@@ -8,20 +8,18 @@
 
 package com.jiang.sys_rdbc.config.shiroOauth;
 
-import java.io.IOException;
+import com.alibaba.druid.util.StringUtils;
+import com.alibaba.fastjson.JSON;
+import com.jiang.sys_rdbc.common.utils.R;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
-
-import com.alibaba.druid.util.StringUtils;
-import com.alibaba.fastjson.JSON;
-import com.jiang.sys_rdbc.common.utils.R;
+import java.io.IOException;
 
 /**
  * oauth2过滤器
@@ -108,6 +106,8 @@ public class OAuth2Filter extends AuthenticatingFilter {
         httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
         httpResponse.setHeader("Access-Control-Allow-Origin", ((HttpServletRequest) request).getHeader("Origin"));
         try {
+
+
             //处理登录失败的异常
             Throwable throwable = e.getCause() == null ? e : e.getCause();
             R r = R.error(401, throwable.getMessage());

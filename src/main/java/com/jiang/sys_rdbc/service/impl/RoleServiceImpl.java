@@ -31,7 +31,7 @@ public class RoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity> i
         PageInfo<User>  pageInfo= new PageInfo(list);
 
         //封装分页组件
-        PageResult<User> userPageResult = new PageResult<>(pageInfo.getPageNum(), pageInfo.getPageSize(), pageInfo.getTotal(), pageInfo.getList());
+        PageResult<User> userPageResult = new PageResult(pageInfo);
 
         return R.ok().put("page",userPageResult);
 

@@ -1,9 +1,10 @@
 package com.jiang.sys_rdbc.config.shiroOauth;
 
-import java.util.Set;
-
-import javax.annotation.Resource;
-
+import com.jiang.sys_rdbc.common.exception.RRException;
+import com.jiang.sys_rdbc.entity.SysUserTokenEntity;
+import com.jiang.sys_rdbc.entity.User;
+import com.jiang.sys_rdbc.service.ShiroService;
+import com.jiang.sys_rdbc.service.UserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -15,11 +16,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.jiang.sys_rdbc.common.exception.RRException;
-import com.jiang.sys_rdbc.entity.SysUserTokenEntity;
-import com.jiang.sys_rdbc.entity.User;
-import com.jiang.sys_rdbc.service.ShiroService;
-import com.jiang.sys_rdbc.service.UserService;
+import javax.annotation.Resource;
+import java.util.Set;
 
 /**
  * @author 蒋雨岳
@@ -64,16 +62,18 @@ public class OAuth2Realm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
+        System.out.println("执行登录逻辑。。。。。。。。。。。。。。。");
+
         String accessToken = (String) token.getPrincipal(); //根据accessToken，查询用户信息
         SysUserTokenEntity tokenEntity = shiroService.queryByToken(accessToken); //token失效
 
-        if (tokenEntity == null || tokenEntity.getExpireTime().getTime()<System.currentTimeMillis()) {
+        if (tokenEntity == null || tokenEntity.getExpireTime().getTime() < System.currentTimeMillis()) {
             throw new RRException("token失效，请重新登录");
         }
         //查询用户信息
         User user = shiroService.queryUser(tokenEntity.getUserId());
 
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, accessToken, getName());
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, accessToken, super.getName());
         return info;
     }
 }

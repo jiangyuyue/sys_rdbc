@@ -3,6 +3,7 @@ package com.jiang.sys_rdbc.common.utils;
 import java.util.List;
 
 import com.github.pagehelper.PageInfo;
+import com.jiang.sys_rdbc.entity.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,10 +36,21 @@ public class PageResult<T> {
      */
     private List<T> list;
 
-    public PageResult(PageInfo<T> pageInfo) {
+    /**
+     * 总页数
+     * 
+     */
+
+    private int     pages;
+
+    public PageResult(PageInfo pageInfo) {
         this.list = pageInfo.getList();
         this.pageNum = pageInfo.getPageNum();
         this.pageSize = pageInfo.getPageSize();
         this.total = pageInfo.getTotal();
+        pages = pageInfo.getPages();
+    }
+
+    public PageResult(int pageNum, int pageSize, long total, List<User> list) {
     }
 }
